@@ -1,19 +1,26 @@
 package com.megs.services;
 
-import com.megs.Models.Item;
+import com.megs.dao.ItemDao;
+import com.megs.models.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ItemServiceImpl implements IItemService {
+
+    @Autowired
+    ItemDao itemDao;
+
     @Override
     public List<Item> GetItems() {
-        Item item = new Item("i1", "q1", 12.2);
-        List<Item> items = new ArrayList<Item>();
-        items.add(item);
-//        return repository.getItems();
+        List<Item> items = itemDao.findAll();
         return items;
+    }
+
+    @Override
+    public void saveItem(Item item) {
+        itemDao.insertItem(item);
     }
 }
