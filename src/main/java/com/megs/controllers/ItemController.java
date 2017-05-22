@@ -2,6 +2,7 @@ package com.megs.controllers;
 
 import com.megs.models.Item;
 import com.megs.services.IItemService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ItemController {
     @Autowired
     IItemService service;
+    private static final Logger logger  = Logger.getLogger(ItemController.class);
 
     @RequestMapping(method = RequestMethod.GET)
     public
@@ -29,6 +31,7 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> saveItem(@RequestBody Item item) {
+        logger.info("Adding an item");
         service.saveItem(item);
         return new ResponseEntity<String>(HttpStatus.OK);
     }

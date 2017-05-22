@@ -1,6 +1,7 @@
 package com.megs.dao;
 
 import com.megs.models.Item;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +17,17 @@ import java.util.List;
 public class ItemDaoImpl implements ItemDao {
     @PersistenceContext
     EntityManager entityManager;
+    private static final Logger logger = Logger.getLogger(ItemDaoImpl.class);
 
     @Override
     public void insertItem(Item item) {
-        entityManager.persist(item);
+                          try{
+                              entityManager.persist(item);
+                              logger.info("item added successfully");
+
+                          }  catch (Exception ex){
+                               logger.error("item can not be inserted");
+                          }
     }
 
     @Override
