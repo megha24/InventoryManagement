@@ -25,6 +25,7 @@ public class ItemController {
     public
     @ResponseBody
     List<Item> getItem() {
+        logger.info("retreiving items");
         List<Item> items = service.GetItems();
         return items;
     }

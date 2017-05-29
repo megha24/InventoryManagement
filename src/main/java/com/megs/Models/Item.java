@@ -39,4 +39,8 @@ public class Item implements Serializable {
        return price;
    }
 
+    public int getId(){
+        return id;
+    }
+
 }
