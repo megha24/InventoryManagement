@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.SQLDataException;
 import java.util.List;
 
 @Controller
@@ -33,7 +34,11 @@ public class ItemController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> saveItem(@RequestBody Item item) {
         logger.info("Adding an item");
-        service.saveItem(item);
+        try {
+            service.saveItem(item);
+        } catch (SQLDataException e) {
+           return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<String>(HttpStatus.OK);
     }
 
